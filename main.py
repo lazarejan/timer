@@ -5,15 +5,16 @@ from datetime import datetime
 def replace_btns(frgt1, frgt2, grid1, grid2):
     def outter(func):
         def wrapper():
-            # if func() == "False":
-            #     return
+            real_func = func()
+            if real_func == "False":
+                return
             frgt1.grid_forget()
             frgt2.grid_forget()
 
             grid1.grid(row = 1, column = 0, sticky = 'ew')
             grid2.grid(row = 1, column = 1, sticky = 'ew')
 
-            return func()
+            return real_func
         return wrapper
     return outter
 
@@ -55,8 +56,8 @@ def start_timer():
 def stop_timer():
     if after_id:
         window.after_cancel(after_id)
-    #     return
-    # return "False"
+        return
+    return "False"
 
 @replace_btns(cont_btn, reset_btn, start_btn, stop_btn)
 def cont_timer():
